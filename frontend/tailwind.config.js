@@ -6,6 +6,13 @@ export default {
   ],
   theme: {
     extend: {
+      colors: {
+        'vibrant-magenta': '#FF1493',
+        'golden-yellow': '#FFD700',
+        'electric-blue': '#00BFFF',
+        'dark-background': '#121212',
+        'light-text': '#F0F0F0',
+      },
       fontFamily: {
         'secondary': ['Montserrat', 'sans-serif'],
         'primary': ['Open Sans', 'sans-serif'],
