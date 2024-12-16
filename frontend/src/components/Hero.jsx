@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState , useContext } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useNavigate } from 'react-router-dom';
 import { 
@@ -7,10 +7,13 @@ import {
   FaMapMarkerAlt, 
   FaRing 
 } from 'react-icons/fa';
+import { ThemeContext } from '../contexts/ThemeContext';
 
 const ServiceCard = ({ icon: Icon, title, description, gradient, route }) => {
   const [isHovered, setIsHovered] = useState(false);
   const navigate = useNavigate();
+
+  
 
   const handleCardClick = () => {
     if (route) {
@@ -20,7 +23,7 @@ const ServiceCard = ({ icon: Icon, title, description, gradient, route }) => {
 
   return (
     <motion.div 
-      className="relative overflow-hidden rounded-2xl shadow-lg cursor-pointer bg-[#121212] text-light-text"
+      className="relative overflow-hidden rounded-2xl shadow-lg cursor-pointer   text-light-text"
       initial={{ 
         opacity: 0, 
         y: 50,
@@ -178,12 +181,14 @@ const ServicesSubHeader = () => {
     }
   ];
 
+  const { theme } = useContext(ThemeContext);
+  
   return (
     <motion.section
       initial={{ opacity: 0 }}
       whileInView={{ opacity: 1 }}
       viewport={{ once: true, amount: 0.1 }}
-      className="py-8 bg-[#121212]"
+      className="py-8 ${theme === 'dark' ? 'bg-[#1E1E1E] text-white' : 'bg-gray-100 text-black'}"
     >
       <div className="container mx-auto px-4">
         <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">

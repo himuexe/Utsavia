@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Link, useNavigate } from "react-router-dom";
 import {
@@ -7,12 +7,18 @@ import {
   FaMapMarkerAlt,
   FaBars,
   FaTimes,
+  FaMoon,
+  FaSun
 } from "react-icons/fa";
+import { ThemeContext } from "../contexts/ThemeContext"; // We'll create this context
 
 const Header = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [cartItemCount, setCartItemCount] = useState(3);
   const navigate = useNavigate();
+  
+  // Use the theme context
+  const { theme, toggleTheme } = useContext(ThemeContext);
 
   const buttonVariants = {
     hover: {
@@ -94,6 +100,26 @@ const Header = () => {
     </motion.button>
   );
 
+  const ThemeToggleButton = () => (
+    <motion.button
+      variants={buttonVariants}
+      whileHover="hover"
+      whileTap="tap"
+      onClick={toggleTheme}
+      className="p-2 rounded-full 
+      hover:bg-deep-purple/20 
+      transition-all duration-300 
+      flex items-center justify-center"
+      aria-label="Toggle theme"
+    >
+      {theme === 'dark' ? (
+        <FaSun className="text-golden-yellow hover:text-vibrant-magenta text-xl transition-colors" />
+      ) : (
+        <FaMoon className="text-deep-purple hover:text-vibrant-magenta text-xl transition-colors" />
+      )}
+    </motion.button>
+  );
+
   const MobileMenu = () => (
     <AnimatePresence>
       {isMenuOpen && (
@@ -141,6 +167,30 @@ const Header = () => {
                 Cart ({cartItemCount})
               </Link>
             </motion.div>
+
+            {/* Add Theme Toggle to Mobile Menu */}
+            <motion.div
+              variants={buttonVariants}
+              whileHover="hover"
+              whileTap="tap"
+              className="transition-all duration-300"
+            >
+              <button
+                onClick={toggleTheme}
+                className="flex items-center gap-2 
+                text-golden-yellow hover:text-vibrant-magenta 
+                px-3 py-2 rounded-md 
+                transition-all duration-300 
+                hover:bg-deep-purple/30"
+              >
+                {theme === 'dark' ? (
+                  <FaSun className="mr-2 text-electric-blue" />
+                ) : (
+                  <FaMoon className="mr-2 text-electric-blue" />
+                )}
+                {theme === 'dark' ? 'Light Mode' : 'Dark Mode'}
+              </button>
+            </motion.div>
           </div>
         </motion.div>
       )}
@@ -152,9 +202,11 @@ const Header = () => {
       initial={{ opacity: 0, y: -50 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.5 }}
-      className="bg-[#121212] text-light-text 
-      py-4 px-6 sticky top-0 z-40 
-      shadow-2xl border-b border-vibrant-magenta/50"
+      className={`
+        ${theme === 'dark' ? 'bg-[#121212] text-light-text' : 'bg-white text-black'}
+        py-4 px-6 sticky top-0 z-40 
+        shadow-2xl border-b border-vibrant-magenta/50
+      `}
     >
       <div className="container mx-auto flex justify-between items-center">
         <CompanyLogo />
@@ -169,6 +221,9 @@ const Header = () => {
           </NavigationButton>
 
           <CartButton />
+
+          {/* Add Theme Toggle Button to Desktop Navigation */}
+          <ThemeToggleButton />
         </nav>
 
         <motion.button

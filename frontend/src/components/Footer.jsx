@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { 
   FaFacebook, 
@@ -11,6 +11,7 @@ import {
   FaGift,
   FaMusic
 } from 'react-icons/fa';
+import { ThemeContext } from '../contexts/ThemeContext';
 
 const FooterLink = ({ children, href, icon: Icon }) => (
   <motion.a
@@ -66,6 +67,8 @@ const SocialIcon = ({ Icon, href, label }) => {
 };
 
 const Footer = () => {
+  const { theme } = useContext(ThemeContext);
+
   const containerVariants = {
     hidden: { opacity: 0 },
     visible: {
@@ -118,7 +121,7 @@ const Footer = () => {
       whileInView="visible"
       viewport={{ once: true, amount: 0.1 }}
       variants={containerVariants}
-      className="bg-[#121212] 
+      className="${theme === 'dark' ? 'bg-[#1E1E1E] text-white' : 'bg-gray-100 text-black'}  
         text-light-text py-16 px-6 overflow-hidden relative border-t border-vibrant-magenta/50"
       aria-label="Utsavia Footer"
     >
