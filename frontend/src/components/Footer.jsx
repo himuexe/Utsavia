@@ -122,7 +122,7 @@ const Footer = () => {
       whileInView="visible"
       viewport={{ once: true, amount: 0.1 }}
       variants={containerVariants}
-      className="bg-[#1E1E1E] text-white  
+      className="bg-[#121212] text-white  
          py-16 px-6 overflow-hidden relative border-t border-vibrant-magenta/50"
       aria-label="Utsavia Footer"
     >

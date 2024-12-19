@@ -44,7 +44,7 @@ const ResponsiveSearchBar = () => {
   const DesktopSearchBar = () => (
     <motion.div
       className="
-        bg-[#1E1E1E]
+        bg-[#121212]
         rounded-xl shadow-lg overflow-hidden my-8
       "
       initial={{ opacity: 0, y: 20 }}

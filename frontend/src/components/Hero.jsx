@@ -182,7 +182,7 @@ const ServicesSubHeader = () => {
       initial={{ opacity: 0 }}
       whileInView={{ opacity: 1 }}
       viewport={{ once: true, amount: 0.1 }}
-      className="py-8 bg-[#1E1E1E] text-white"
+      className="py-8 bg-[#121212] text-white"
     >
       <div className="container mx-auto px-4">
         <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
