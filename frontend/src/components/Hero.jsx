@@ -1,19 +1,11 @@
-import React, { useState , useContext } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
-import { useNavigate } from 'react-router-dom';
-import { 
-  FaHome, 
-  FaBuilding, 
-  FaMapMarkerAlt, 
-  FaRing 
-} from 'react-icons/fa';
-import { ThemeContext } from '../contexts/ThemeContext';
+import React, { useState, useContext } from "react";
+import { motion, AnimatePresence } from "framer-motion";
+import { useNavigate } from "react-router-dom";
+import { FaHome, FaBuilding, FaMapMarkerAlt, FaRing } from "react-icons/fa";
 
 const ServiceCard = ({ icon: Icon, title, description, gradient, route }) => {
   const [isHovered, setIsHovered] = useState(false);
   const navigate = useNavigate();
-
-  
 
   const handleCardClick = () => {
     if (route) {
@@ -22,27 +14,27 @@ const ServiceCard = ({ icon: Icon, title, description, gradient, route }) => {
   };
 
   return (
-    <motion.div 
+    <motion.div
       className="relative overflow-hidden rounded-2xl shadow-lg cursor-pointer   text-light-text"
-      initial={{ 
-        opacity: 0, 
+      initial={{
+        opacity: 0,
         y: 50,
-        rotateX: 30
+        rotateX: 30,
       }}
-      animate={{ 
-        opacity: 1, 
+      animate={{
+        opacity: 1,
         y: 0,
-        rotateX: 0
+        rotateX: 0,
       }}
-      transition={{ 
-        type: 'tween',
+      transition={{
+        type: "tween",
         duration: 0.5,
-        ease: 'easeOut'
+        ease: "easeOut",
       }}
-      whileHover={{ 
+      whileHover={{
         scale: 1.05,
-        boxShadow: '0 10px 25px rgba(0,0,0,0.2)',
-        transition: { duration: 0.3 }
+        boxShadow: "0 10px 25px rgba(0,0,0,0.2)",
+        transition: { duration: 0.3 },
       }}
       onClick={handleCardClick}
       onTap={() => setIsHovered(!isHovered)}
@@ -50,11 +42,11 @@ const ServiceCard = ({ icon: Icon, title, description, gradient, route }) => {
       onHoverLeave={() => setIsHovered(false)}
     >
       {/* Gradient Background with Parallax Effect */}
-      <motion.div 
+      <motion.div
         className={`absolute inset-0 opacity-80 ${gradient}`}
         animate={{
           scale: isHovered ? 1.1 : 1,
-          rotate: isHovered ? 2 : 0
+          rotate: isHovered ? 2 : 0,
         }}
         transition={{ duration: 0.3 }}
       />
@@ -64,25 +56,25 @@ const ServiceCard = ({ icon: Icon, title, description, gradient, route }) => {
         {/* Icon and Title Container */}
         <div className="flex flex-col items-center space-y-4 mb-4 w-full">
           <motion.div
-            animate={{ 
+            animate={{
               translateY: isHovered ? -10 : 0,
-              rotate: isHovered ? -15 : 0
+              rotate: isHovered ? -15 : 0,
             }}
-            transition={{ 
-              type: 'spring',
+            transition={{
+              type: "spring",
               stiffness: 300,
-              damping: 10
+              damping: 10,
             }}
             className="flex justify-center w-full"
           >
             <Icon className="text-4xl text-golden-yellow transform transition-transform" />
           </motion.div>
-          
-          <motion.h3 
+
+          <motion.h3
             className="text-2xl font-bold text-golden-yellow font-secondary text-center"
             animate={{
               scale: isHovered ? 1.05 : 1,
-              opacity: isHovered ? 1 : 0.8
+              opacity: isHovered ? 1 : 0.8,
             }}
             transition={{ duration: 0.3 }}
           >
@@ -96,31 +88,31 @@ const ServiceCard = ({ icon: Icon, title, description, gradient, route }) => {
             initial="hidden"
             animate="visible"
             variants={{
-              hidden: { 
-                opacity: 0, 
+              hidden: {
+                opacity: 0,
                 y: 20,
-                height: 0
+                height: 0,
               },
-              visible: { 
-                opacity: 1, 
+              visible: {
+                opacity: 1,
                 y: 0,
-                height: 'auto',
+                height: "auto",
                 transition: {
                   duration: 0.4,
                   delayChildren: 0.2,
-                  staggerChildren: 0.1
-                }
-              }
+                  staggerChildren: 0.1,
+                },
+              },
             }}
             className={`overflow-hidden text-center 
-              ${isHovered ? 'block' : 'md:hidden'}`}
+              ${isHovered ? "block" : "md:hidden"}`}
           >
-            {description.split(' ').map((word, index) => (
+            {description.split(" ").map((word, index) => (
               <motion.span
                 key={index}
                 variants={{
                   hidden: { opacity: 0, y: 20 },
-                  visible: { opacity: 1, y: 0 }
+                  visible: { opacity: 1, y: 0 },
                 }}
                 className="inline-block mr-2 text-yellow-100 text-sm font-happiness"
               >
@@ -133,15 +125,15 @@ const ServiceCard = ({ icon: Icon, title, description, gradient, route }) => {
         {/* Hover Indicator with Diagonal Movement */}
         <motion.div
           className="absolute bottom-0 left-0 h-1 bg-golden-yellow"
-          initial={{ width: '0%', x: '-100%' }}
-          animate={{ 
-            width: isHovered ? '100%' : '0%',
-            x: isHovered ? 0 : '-100%'
+          initial={{ width: "0%", x: "-100%" }}
+          animate={{
+            width: isHovered ? "100%" : "0%",
+            x: isHovered ? 0 : "-100%",
           }}
-          transition={{ 
-            type: 'spring',
+          transition={{
+            type: "spring",
             stiffness: 250,
-            damping: 20
+            damping: 20,
           }}
         />
       </div>
@@ -153,50 +145,49 @@ const ServicesSubHeader = () => {
   const services = [
     {
       icon: FaHome,
-      title: 'Inhouse',
-      description: 'Discover our curated inhouse experiences tailored for unforgettable moments.',
-      gradient: 'bg-gradient-to-br from-purple-900 via-fuchsia-800 to-pink-700',
-      route: '/inhouse'
+      title: "Inhouse",
+      description:
+        "Discover our curated inhouse experiences tailored for unforgettable moments.",
+      gradient: "bg-gradient-to-br from-purple-900 via-fuchsia-800 to-pink-700",
+      route: "/inhouse",
     },
     {
       icon: FaBuilding,
-      title: 'Apartments',
-      description: 'Luxurious and comfortable apartments designed for your perfect stay.',
-      gradient: 'bg-gradient-to-br from-fuchsia-800 via-pink-700 to-red-600',
-      route: '/apartments'
+      title: "Apartments",
+      description:
+        "Luxurious and comfortable apartments designed for your perfect stay.",
+      gradient: "bg-gradient-to-br from-fuchsia-800 via-pink-700 to-red-600",
+      route: "/apartments",
     },
     {
       icon: FaMapMarkerAlt,
-      title: 'Our Location',
-      description: 'Explore our prime locations strategically positioned for convenience and beauty.',
-      gradient: 'bg-gradient-to-br from-pink-700 via-red-600 to-orange-500',
-      route: '/location'
+      title: "Our Location",
+      description:
+        "Explore our prime locations strategically positioned for convenience and beauty.",
+      gradient: "bg-gradient-to-br from-pink-700 via-red-600 to-orange-500",
+      route: "/location",
     },
     {
       icon: FaRing,
-      title: 'Wedding',
-      description: 'Create magical wedding experiences with our comprehensive event planning.',
-      gradient: 'bg-gradient-to-br from-red-600 via-orange-500 to-yellow-400',
-      route: '/wedding'
-    }
+      title: "Wedding",
+      description:
+        "Create magical wedding experiences with our comprehensive event planning.",
+      gradient: "bg-gradient-to-br from-red-600 via-orange-500 to-yellow-400",
+      route: "/wedding",
+    },
   ];
 
-  const { theme } = useContext(ThemeContext);
-  
   return (
     <motion.section
       initial={{ opacity: 0 }}
       whileInView={{ opacity: 1 }}
       viewport={{ once: true, amount: 0.1 }}
-      className="py-8 ${theme === 'dark' ? 'bg-[#1E1E1E] text-white' : 'bg-gray-100 text-black'}"
+      className="py-8 bg-[#1E1E1E] text-white"
     >
       <div className="container mx-auto px-4">
         <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
           {services.map((service, index) => (
-            <ServiceCard 
-              key={index}
-              {...service}
-            />
+            <ServiceCard key={index} {...service} />
           ))}
         </div>
       </div>
