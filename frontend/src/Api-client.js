@@ -1,4 +1,5 @@
-const API_BASE_URL = import.meta.env.VITE_API_BASE_URL || "http://localhost:3000";
+const API_BASE_URL =
+  import.meta.env.VITE_API_BASE_URL || "http://localhost:3000";
 
 export const register = async (formData) => {
   const response = await fetch(`${API_BASE_URL}/api/users/register`, {
@@ -37,8 +38,6 @@ export const validateToken = async () => {
   const response = await fetch(`${API_BASE_URL}/api/auth/validate-token`, {
     credentials: "include",
   });
-
-
 
   return response.json();
 };

@@ -96,25 +96,6 @@ const Header = () => {
     </motion.button>
   );
 
-  const ThemeToggleButton = () => (
-    <motion.button
-      variants={buttonVariants}
-      whileHover="hover"
-      whileTap="tap"
-      onClick={toggleTheme}
-      className="p-2 rounded-full 
-      hover:bg-deep-purple/20 
-      transition-all duration-300 
-      flex items-center justify-center"
-      aria-label="Toggle theme"
-    >
-      {theme === "dark" ? (
-        <FaSun className="text-golden-yellow hover:text-vibrant-magenta text-xl transition-colors" />
-      ) : (
-        <FaMoon className="text-deep-purple hover:text-vibrant-magenta text-xl transition-colors" />
-      )}
-    </motion.button>
-  );
 
   const MobileMenu = () => (
     <AnimatePresence>
