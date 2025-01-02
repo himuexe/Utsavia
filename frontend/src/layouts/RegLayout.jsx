@@ -1,7 +1,7 @@
 import Header from "../components/Header";
-import Hero from "../components/Hero";
+
 import Footer from "../components/Footer";
-import SearchBar from "../components/SearchBar";
+
 
 const RegLayout = ({ children }) => {
   return (

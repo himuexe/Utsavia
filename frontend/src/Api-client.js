@@ -11,7 +11,6 @@ export const register = async (formData) => {
   });
 
   const responseBody = await response.json();
-
   if (!response.ok) {
     throw new Error(responseBody.message);
   }
@@ -39,9 +38,11 @@ export const validateToken = async () => {
     credentials: "include",
   });
 
-  if (!response.ok) {
-    throw new Error("Token invalid");
-  }
+
 
   return response.json();
+};
+
+export const googleSignIn = () => {
+  window.location.href = `${API_BASE_URL}/api/auth/google`;
 };
