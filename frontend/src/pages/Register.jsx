@@ -51,7 +51,7 @@ const Register = () => {
         <label className="text-golden-yellow text-sm font-bold flex-1">
           First Name
           <input
-            className="border border-golden-yellow rounded w-full py-1 px-2 bg-transparent text-white placeholder-golden-yellow"
+            className="border border-white rounded w-full py-1 px-2 bg-transparent text-white placeholder-golden-yellow"
             placeholder="Enter your first name"
             {...register("firstName", { required: "This field is required" })}
           />
@@ -62,7 +62,7 @@ const Register = () => {
         <label className="text-golden-yellow text-sm font-bold flex-1">
           Last Name
           <input
-            className="border border-golden-yellow rounded w-full py-1 px-2 bg-transparent text-white placeholder-golden-yellow"
+            className="border border-white rounded w-full py-1 px-2 bg-transparent text-white placeholder-golden-yellow"
             placeholder="Enter your last name"
             {...register("lastName", { required: "This field is required" })}
           />
@@ -75,7 +75,7 @@ const Register = () => {
         Email
         <input
           type="email"
-          className="border border-golden-yellow rounded w-full py-1 px-2 bg-transparent text-white placeholder-golden-yellow"
+          className="border border-white rounded w-full py-1 px-2 bg-transparent text-white placeholder-golden-yellow"
           placeholder="Enter your email"
           {...register("email", { required: "This field is required" })}
         />
@@ -87,7 +87,7 @@ const Register = () => {
         Password
         <input
           type="password"
-          className="border border-golden-yellow rounded w-full py-1 px-2 bg-transparent text-white placeholder-golden-yellow"
+          className="border border-white rounded w-full py-1 px-2 bg-transparent text-white placeholder-golden-yellow"
           placeholder="Enter your password"
           {...register("password", {
             required: "This field is required",
@@ -107,7 +107,7 @@ const Register = () => {
         Confirm Password
         <input
           type="password"
-          className="border border-golden-yellow rounded w-full py-1 px-2 bg-transparent text-white placeholder-golden-yellow"
+          className="border border-white rounded w-full py-1 px-2 bg-transparent text-white placeholder-golden-yellow"
           placeholder="Confirm your password"
           {...register("confirmPassword", {
             validate: (val) => {

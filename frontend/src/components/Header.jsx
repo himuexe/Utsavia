@@ -1,4 +1,4 @@
-import React, { useState, useCallback } from "react";
+import React, { useState, useCallback, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Link, useNavigate } from "react-router-dom";
 import { useMutation, useQueryClient } from "react-query";
@@ -15,27 +15,27 @@ import {
   FaSignOutAlt,
 } from "react-icons/fa";
 import { useAppContext } from "../contexts/AppContext";
-
+import useLocation from "../hooks/useLocation";
 const slideVariants = {
   initial: { x: "100%" },
-  animate: { 
+  animate: {
     x: 0,
     transition: {
       type: "spring",
       stiffness: 300,
       damping: 30,
-      mass: 0.2
-    }
+      mass: 0.2,
+    },
   },
-  exit: { 
+  exit: {
     x: "100%",
     transition: {
       type: "spring",
       stiffness: 300,
       damping: 30,
-      mass: 0.2
-    }
-  }
+      mass: 0.2,
+    },
+  },
 };
 
 const SidePanel = ({ isOpen, onClose, title, children }) => (
@@ -78,10 +78,16 @@ const SidePanel = ({ isOpen, onClose, title, children }) => (
 const Header = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isProfilePanelOpen, setIsProfilePanelOpen] = useState(false);
-  const [cartItemCount, setCartItemCount] = useState(3);
+  const [cartItemCount, setCartItemCount] = useState(0);
   const { isLoggedIn, showToast } = useAppContext();
+  const [isLocationPanelOpen, setIsLocationPanelOpen] = useState(false);
+  const { userLocation, isLoadingLocation, locationError, getUserLocation } =
+    useLocation();
   const navigate = useNavigate();
   const queryClient = useQueryClient();
+  useEffect(() => {
+    getUserLocation();
+  }, [getUserLocation]);
 
   const signOutMutation = useMutation(apiClient.signOut, {
     onSuccess: async () => {
@@ -103,48 +109,52 @@ const Header = () => {
   const buttonVariants = {
     hover: {
       scale: 1.05,
-      transition: { type: "spring", stiffness: 300 }
+      transition: { type: "spring", stiffness: 300 },
     },
-    tap: { scale: 0.95 }
+    tap: { scale: 0.95 },
   };
 
-  const NavigationButton = React.memo(({ icon: Icon, children, to, onClick }) => (
-    <motion.div
-      variants={buttonVariants}
-      whileHover="hover"
-      whileTap="tap"
-      className="transition-all duration-300"
-    >
-      {to ? (
-        <Link
-          to={to}
-          className="flex items-center gap-2 
+  const NavigationButton = React.memo(
+    ({ icon: Icon, children, to, onClick }) => (
+      <motion.div
+        variants={buttonVariants}
+        whileHover="hover"
+        whileTap="tap"
+        className="transition-all duration-300"
+      >
+        {to ? (
+          <Link
+            to={to}
+            className="flex items-center gap-2 
           text-golden-yellow hover:text-vibrant-magenta 
           px-3 py-2 rounded-md 
           transition-all duration-300 
           hover:bg-deep-purple/30 
           font-medium tracking-wider"
-        >
-          {Icon && <Icon className="mr-2 text-electric-blue" />}
-          {children}
-        </Link>
-      ) : (
-        <button
-          onClick={onClick}
-          className="flex items-center gap-2 
+          >
+            {Icon && <Icon className="mr-2 text-electric-blue" />}
+            {children}
+          </Link>
+        ) : (
+          <button
+            onClick={onClick}
+            className="flex items-center gap-2 
           text-golden-yellow hover:text-vibrant-magenta 
           px-3 py-2 rounded-md w-full
           transition-all duration-300 
           hover:bg-deep-purple/30 
           font-medium tracking-wider"
-          disabled={onClick === handleSignOut && signOutMutation.isLoading}
-        >
-          {Icon && <Icon className="mr-2 text-electric-blue" />}
-          {onClick === handleSignOut && signOutMutation.isLoading ? "Signing Out..." : children}
-        </button>
-      )}
-    </motion.div>
-  ));
+            disabled={onClick === handleSignOut && signOutMutation.isLoading}
+          >
+            {Icon && <Icon className="mr-2 text-electric-blue" />}
+            {onClick === handleSignOut && signOutMutation.isLoading
+              ? "Signing Out..."
+              : children}
+          </button>
+        )}
+      </motion.div>
+    )
+  );
 
   const CompanyLogo = React.memo(() => (
     <motion.div
@@ -249,8 +259,13 @@ const Header = () => {
         <CompanyLogo />
 
         <nav className="hidden md:flex space-x-4 items-center font-secondary">
-          <NavigationButton icon={FaMapMarkerAlt} to="/location">
-            Location
+          <NavigationButton
+            icon={FaMapMarkerAlt}
+            onClick={() => setIsLocationPanelOpen(true)}
+          >
+            {isLoadingLocation
+              ? "Getting location..."
+              : userLocation || "Location"}
           </NavigationButton>
 
           {isLoggedIn ? (
@@ -275,26 +290,56 @@ const Header = () => {
         </motion.button>
       </div>
 
-      <SidePanel 
-        isOpen={isMenuOpen} 
+      <SidePanel
+        isOpen={isMenuOpen}
         onClose={() => setIsMenuOpen(false)}
         title="Menu"
       >
         <div className="space-y-2">
-          <NavigationButton icon={FaMapMarkerAlt} to="/location">
-            Location
+          <NavigationButton
+            icon={FaMapMarkerAlt}
+            onClick={() => setIsLocationPanelOpen(true)}
+          >
+            {isLoadingLocation
+              ? "Getting location..."
+              : userLocation || "Location"}
           </NavigationButton>
           {navigationItems}
         </div>
       </SidePanel>
 
-      <SidePanel 
-        isOpen={isProfilePanelOpen && !isMenuOpen} 
+      <SidePanel
+        isOpen={isProfilePanelOpen && !isMenuOpen}
         onClose={() => setIsProfilePanelOpen(false)}
         title="Your Account"
       >
-        <div className="space-y-2">
-          {navigationItems}
+        <div className="space-y-2">{navigationItems}</div>
+      </SidePanel>
+      <SidePanel
+        isOpen={isLocationPanelOpen}
+        onClose={() => setIsLocationPanelOpen(false)}
+        title="Your Location"
+      >
+        <div className="space-y-4">
+          <div className="text-golden-yellow">
+            <p className="mb-2">Current Location:</p>
+            <p className="text-xl font-bold">
+              {isLoadingLocation
+                ? "Getting location..."
+                : userLocation || "Location not found"}
+            </p>
+          </div>
+          <button
+            onClick={getUserLocation}
+            className="w-full px-4 py-2 
+          bg-deep-purple/30 
+          text-electric-blue 
+          rounded-md 
+          hover:bg-deep-purple/50 
+          transition-colors"
+          >
+            Update Location
+          </button>
         </div>
       </SidePanel>
     </motion.header>

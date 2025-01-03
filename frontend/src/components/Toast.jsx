@@ -13,8 +13,8 @@ const Toast = ({ message, type, onClose }) => {
 
   const styles =
     type === "SUCCESS"
-      ? "fixed bottom-0 left-0 right-0 z-50 p-2 bg-green-600 text-white text-center"
-      : "fixed bottom-0 left-0 right-0 z-50 p-2 bg-red-600 text-white text-center";
+      ? "fixed bottom-0 left-0 right-0 z-50 p-1 bg-green-600 text-white text-center"
+      : "fixed bottom-0 left-0 right-0 z-50 p-1 bg-red-600 text-white text-center";
 
   return (
     <div className={styles}>

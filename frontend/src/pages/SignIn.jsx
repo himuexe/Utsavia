@@ -52,7 +52,7 @@ const SignIn = () => {
         Email
         <input
           type="email"
-          className="border border-golden-yellow rounded w-full py-1 px-2 bg-transparent text-white placeholder-golden-yellow"
+          className="border border-white rounded w-full py-1 px-2 bg-transparent text-white placeholder-golden-yellow"
           placeholder="Enter your email"
           {...register("email", { required: "This field is required" })}
         />
@@ -64,7 +64,7 @@ const SignIn = () => {
         Password
         <input
           type="password"
-          className="border border-golden-yellow rounded w-full py-1 px-2 bg-transparent text-white placeholder-golden-yellow"
+          className="border border-white rounded w-full py-1 px-2 bg-transparent text-white placeholder-golden-yellow"
           placeholder="Enter your password"
           {...register("password", {
             required: "This field is required",

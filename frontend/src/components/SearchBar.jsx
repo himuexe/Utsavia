@@ -2,7 +2,6 @@ import React, { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import {
   FaSearch,
-  FaCalendar,
   FaFilter,
   FaBars,
   FaTimes,
@@ -10,8 +9,6 @@ import {
 
 const ResponsiveSearchBar = () => {
   const [searchTerm, setSearchTerm] = useState("");
-  const [startDate, setStartDate] = useState("");
-  const [endDate, setEndDate] = useState("");
   const [category, setCategory] = useState("Packages");
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [isMobile, setIsMobile] = useState(false);
@@ -28,7 +25,7 @@ const ResponsiveSearchBar = () => {
   }, []);
 
   const handleSearch = () => {
-    console.log({ searchTerm, startDate, endDate, category });
+    console.log({ searchTerm, category });
     setIsMobileMenuOpen(false);
   };
 
@@ -51,7 +48,7 @@ const ResponsiveSearchBar = () => {
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.4 }}
     >
-      <div className="grid grid-cols-[2fr_1fr_1fr_1fr_auto] items-center gap-4 p-6">
+      <div className="grid grid-cols-[2fr_1fr_auto] items-center gap-4 p-6">
         {/* Search Input */}
         <motion.div
           className="flex items-center"
@@ -62,7 +59,7 @@ const ResponsiveSearchBar = () => {
             <FaSearch
               className={`
               absolute left-4 top-1/2 transform -translate-y-1/2 
-              text-electric-blue' : 'text-gray-500'}
+              text-electric-blue
             `}
             />
             <input
@@ -72,71 +69,14 @@ const ResponsiveSearchBar = () => {
               onChange={(e) => setSearchTerm(e.target.value)}
               className="
                 w-full pl-12 pr-4 py-3 
-                
-                  bg-[#2C2C2E] text-light-text border-transparent focus:border-electric-blue'
-                  
+                bg-[#2C2C2E] text-light-text border-transparent focus:border-electric-blue
                 rounded-lg border
                 transition duration-300
               "
             />
           </div>
         </motion.div>
-        {/* Start Date */}
-        <motion.div
-          whileHover={{ scale: 1.02 }}
-          transition={{ type: "spring", stiffness: 300 }}
-        >
-          <div className="relative">
-            <FaCalendar
-              className="
-              absolute left-4 top-1/2 transform -translate-y-1/2 
-              text-electric-blue "
-            />
-            <input
-              type="date"
-              value={startDate}
-              onChange={(e) => setStartDate(e.target.value)}
-              className={`
-                w-full pl-12 pr-4 py-3 
-                
-                  bg-[#2C2C2E] text-light-text border-transparent focus:border-electric-blue
-                 
-                rounded-lg border
-                transition duration-300 
-                appearance-none
-              `}
-            />
-          </div>
-        </motion.div>
 
-        {/* End Date */}
-        <motion.div
-          whileHover={{ scale: 1.02 }}
-          transition={{ type: "spring", stiffness: 300 }}
-        >
-          <div className="relative">
-            <FaCalendar
-              className={`
-              absolute left-4 top-1/2 transform -translate-y-1/2 
-              'text-electric-blue
-            `}
-            />
-            <input
-              type="date"
-              value={endDate}
-              onChange={(e) => setEndDate(e.target.value)}
-              className={`
-                w-full pl-12 pr-4 py-3 
-                
-                  bg-[#2C2C2E] text-light-text border-transparent focus:border-electric-blue
-                  
-                rounded-lg border
-                transition duration-300 
-                appearance-none
-              `}
-            />
-          </div>
-        </motion.div>
         {/* Category Dropdown */}
         <motion.div
           whileHover={{ scale: 1.02 }}
@@ -154,9 +94,7 @@ const ResponsiveSearchBar = () => {
               onChange={(e) => setCategory(e.target.value)}
               className={`
                 w-full pl-12 pr-4 py-3 
-                
-                  bg-[#2C2C2E] text-light-text border-transparent focus:border-electric-blue
-                  
+                bg-[#2C2C2E] text-light-text border-transparent focus:border-electric-blue
                 rounded-lg border
                 transition duration-300 
                 appearance-none
@@ -174,9 +112,7 @@ const ResponsiveSearchBar = () => {
           onClick={handleSearch}
           className={`
             px-6 py-3 
-            
-              bg-vibrant-magenta text-white hover:bg-electric-blue
-              
+            bg-vibrant-magenta text-white hover:bg-electric-blue
             rounded-lg 
             transition duration-300 
             flex items-center justify-center 
@@ -198,7 +134,7 @@ const ResponsiveSearchBar = () => {
     <motion.div
       className={`
       w-full 
-      bg-[#1E1E1E]' : 'bg-gray-100'}
+      bg-[#1E1E1E]
       rounded-xl shadow-lg my-8
     `}
       initial={{ opacity: 0, y: 20 }}
@@ -244,9 +180,7 @@ const ResponsiveSearchBar = () => {
             onChange={(e) => setSearchTerm(e.target.value)}
             className={`
               w-full pl-12 pr-4 py-3 
-              
-                bg-[#2C2C2E] text-light-text border-transparent focus:border-electric-blue
-                
+              bg-[#2C2C2E] text-light-text border-transparent focus:border-electric-blue
               rounded-lg border
               transition duration-300
             `}
@@ -264,55 +198,13 @@ const ResponsiveSearchBar = () => {
             className="overflow-hidden bg-[#1E1E1E]"
           >
             <div className="p-6 space-y-6">
-              {/* Start Date */}
-              <div className="relative">
-                <label className="block text-sm text-light-text mb-2">
-                  Start Date
-                </label>
-                <div className="relative">
-                  <FaCalendar className="absolute left-4 top-1/2 transform translate-y-1/2 text-electric-blue" />
-                  <input
-                    type="date"
-                    value={startDate}
-                    onChange={(e) => setStartDate(e.target.value)}
-                    className="w-full pl-12 pr-4 py-3 
-                    bg-[#2C2C2E] text-light-text 
-                    rounded-lg border border-transparent 
-                    focus:border-electric-blue 
-                    transition duration-300 
-                    appearance-none"
-                  />
-                </div>
-              </div>
-
-              {/* End Date */}
-              <div className="relative">
-                <label className="block text-sm text-light-text mb-2">
-                  End Date
-                </label>
-                <div className="relative">
-                  <FaCalendar className="absolute left-4 top-1/2 transform translate-y-1/2 text-electric-blue" />
-                  <input
-                    type="date"
-                    value={endDate}
-                    onChange={(e) => setEndDate(e.target.value)}
-                    className="w-full pl-12 pr-4 py-3 
-                    bg-[#2C2C2E] text-light-text 
-                    rounded-lg border border-transparent 
-                    focus:border-electric-blue 
-                    transition duration-300 
-                    appearance-none"
-                  />
-                </div>
-              </div>
-
               {/* Category Dropdown */}
               <div className="relative">
                 <label className="block text-sm text-light-text mb-2">
                   Category
                 </label>
                 <div className="relative">
-                  <FaFilter className="absolute left-4 top-1/2 transform translate-y-1/2 text-electric-blue" />
+                  <FaFilter className="absolute left-4 top-1/2 transform -translate-y-1/2 text-electric-blue" />
                   <select
                     value={category}
                     onChange={(e) => setCategory(e.target.value)}
