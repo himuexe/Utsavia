@@ -3,12 +3,11 @@ const bcrypt = require("bcryptjs");
 const express = require("express");
 const passport = require("passport");
 const { check, validationResult } = require("express-validator");
+const session = require("express-session");
 const User = require("../models/user");
 const verifyToken = require("../middleware/auth");
 
-
 const router = express.Router();
-
 
 router.post(
   "/login",
@@ -55,10 +54,25 @@ router.get("/validate-token", verifyToken, (req, res) => {
 });
 
 router.post("/logout", (req, res) => {
+  // Clear the auth token cookie
   res.cookie("auth_token", "", {
     expires: new Date(0),
+    httpOnly: true,
+    secure: process.env.NODE_ENV === "production",
   });
-  res.send();
+
+  // Destroy the session
+  req.session.destroy((err) => {
+    if (err) {
+      console.error("Session destruction error:", err);
+      return res.status(500).json({ message: "Error during logout" });
+    }
+
+    // Clear session cookie
+    res.clearCookie("connect.sid"); // This is the default session cookie name
+
+    res.status(200).json({ message: "Logged out successfully" });
+  });
 });
 
 router.get(
